@@ -109,6 +109,6 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 			$routeName = 'Unknown';
 		}
 
-		$this->assertEquals(true, in_array($filtername, $filters), "Filter $filtername not present in ".$routeName);
+		$this->assertEquals(true, in_array($filtername, $filters), "Filter $filtername not present in $routeName");
 	}
 }
