@@ -21,7 +21,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	 *
 	 * @var string
 	 */
-	private $controllerName;
+	protected $controllerName;
 
 	/**
 	 * Perform a request on one of the defined controller's actions.
@@ -34,9 +34,9 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	 *
 	 * @return \Illumniate\Http\Response
 	 */
-	private function callAction($method, $action, $params = array(), $input = array(), $files = array())
+	public function callAction($method, $action, $params = array(), $input = array(), $files = array())
 	{
-		$uri = $this->app['url']->action($controllerName.'@'.$action, $params, true);
+		$uri = $this->app['url']->action($this->controllerName.'@'.$action, $params, true);
 		return $this->call($method, $uri, $input, $files);
 	}
 
@@ -48,9 +48,9 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	private function getAction($action, $params = array())
+	public function getAction($action, $params = array())
 	{
-		return $this->callAction($action, 'GET', $params);
+		return $this->callAction('GET', $action, $params);
 	}
 
 	/**
@@ -64,9 +64,9 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	private function postAction($action, $params = array(), $input = array(), $files = array())
+	public function postAction($action, $params = array(), $input = array(), $files = array())
 	{
-		return $this->callAction($action, 'POST', $params);
+		return $this->callAction('POST', $action, $params);
 	}
 
 	/**
@@ -78,9 +78,9 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	 *
 	 * @return void
 	 */
-	private function assertRedirectedToAction($action, $params = array(), $with = array())
+	public function assertRedirectedToAction($action, $params = array(), $with = array())
 	{
-		$uri = $this->app['url']->action($controllerName.'@'.$action, $params, true);
+		$uri = $this->app['url']->action($this->controllerName.'@'.$action, $params, true);
 		$this->assertRedirectedTo($uri, $with);
 	}
 
@@ -92,14 +92,23 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	 *
 	 * @return void
 	 */
-	private function assertRouteHasFilter($filtername, $when='before')
+	public function assertRouteHasFilter($filtername, $when='before')
 	{
+		$route = $this->app['router']->getCurrentRoute();
 		if ($when == 'before') {
-			$filters = Route::getCurrentRoute()->getBeforeFilters();
+			$filters = $route->getBeforeFilters();
 		} elseif ($when == 'after') {
-			$filters = Route::getCurrentRoute()->getAfterFilters();
+			$filters = $route->getAfterFilters();
 		}
 
-		$this->assertEquals(true, in_array($filtername, $filters));
+		if ($this->app['router']->currentRouteAction()) {
+			$routeName = $this->app['router']->currentRouteAction();
+		} elseif ($this->app['router']->currentRouteName()) {
+			$routeName = $this->app['router']->currentRouteName();
+		} else {
+			$routeName = 'Unknown';
+		}
+
+		$this->assertEquals(true, in_array($filtername, $filters), "Filter $filtername not present in ".$routeName);
 	}
 }
