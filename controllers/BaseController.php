@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use URL, Redirect;
+use URL, Redirect, View;
 
 abstract class BaseController extends \Controller
 {
@@ -12,7 +12,7 @@ abstract class BaseController extends \Controller
 	 *
 	 * @var string
 	 */
-	private $classname;
+	protected $classname;
 
 	/**
 	 * Helper function to retrieve this controller's action URLs.
@@ -22,7 +22,7 @@ abstract class BaseController extends \Controller
 	 *
 	 * @return string         the URL to the action.
 	 */
-	private function actionUrl($action, $params = array())
+	protected function actionUrl($action, $params = array())
 	{
 		if (!isset($this->classname)) {
 			$this->classname = get_class($this);
@@ -39,7 +39,7 @@ abstract class BaseController extends \Controller
 	 *
 	 * @return Redirect       a Redirect response.
 	 */
-	private function redirectToAction($action, $params = array())
+	protected function redirectToAction($action, $params = array())
 	{
 		if (!isset($this->classname)) {
 			$this->classname = get_class($this);

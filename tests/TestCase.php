@@ -37,7 +37,8 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	public function callAction($method, $action, $params = array(), $input = array(), $files = array())
 	{
 		$uri = $this->app['url']->action($this->controllerName.'@'.$action, $params, true);
-		return $this->call($method, $uri, $input, $files);
+		$this->crawler = $this->client->request($method, $uri, $input, $files);
+ 		return $this->client->getResponse();
 	}
 
 	/**
@@ -66,7 +67,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	 */
 	public function postAction($action, $params = array(), $input = array(), $files = array())
 	{
-		return $this->callAction('POST', $action, $params);
+		return $this->callAction('POST', $action, $params, $input);
 	}
 
 	/**
@@ -109,6 +110,35 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 			$routeName = 'Unknown';
 		}
 
-		$this->assertEquals(true, in_array($filtername, $filters), "Filter $filtername not present in $routeName");
+		$this->assertEquals(true, in_array($filtername, $filters),
+			"Filter $filtername not present in $routeName");
+	}
+
+	/**
+	 * Check that an input field has a certain value.
+	 *
+	 * @param  string $id    id of the input field
+	 * @param  string $value expected value
+	 *
+	 * @return void
+	 */
+	public function assertInputHasValue($id, $value)
+	{
+		$realValue = $this->crawler->filter('input#'.$id)->first()->attr('value');
+		$this->assertEquals($realValue, $value,
+			"Disrepency in input#$id - Expected: $value - Real: $realValue");
+	}
+
+	/**
+	 * Our own implementation to avoid having to type the whole controller name over and over.
+	 *
+	 * @param  string $action name of the action we're supposed to be redirected to.
+	 * @param  array  $params (optional) action parameters
+	 *
+	 * @return void
+	 */
+	public function urlToAction($action, $params = array())
+	{
+		return $this->app['url']->action($this->controllerName.'@'.$action, $params, true);
 	}
 }
