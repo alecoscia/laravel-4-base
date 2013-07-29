@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use URL, Redirect, View;
+use URL, Redirect;
 
 abstract class BaseController extends \Controller
 {
