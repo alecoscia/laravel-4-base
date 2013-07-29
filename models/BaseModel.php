@@ -22,9 +22,7 @@ abstract class BaseModel extends \Illuminate\Database\Eloquent\Model
 	 */
 	private function getDateTimeOf($field)
 	{
-		if (!isset($this->attributes[$field])) {
-			return false;
-		} elseif (!isset($this->dateTimes[$field])) {
+		if (!isset($this->dateTimes[$field])) {
 			$this->dateTimes[$field] = $this->asDateTime($this->attributes[$field]);
 		}
 
@@ -40,8 +38,6 @@ abstract class BaseModel extends \Illuminate\Database\Eloquent\Model
 	 */
 	private function setDateTimeOf($field, $value)
 	{
-		if (!$this->attributes[$field] = $this->fromDateTime($value)) {
-			unset($this->dateTimes[$field]);
-		}
+		$this->attributes[$field] = $this->fromDateTime($value);
 	}
 }
