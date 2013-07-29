@@ -13,6 +13,8 @@ Includes functions to easily get the URL to or redirect to an action within the 
 ## Base Model
 Includes functions to easily get and set fields that relate to date/time as Carbon objects.
 
+As well as a BaseModel with all the functions included, each functionality is extracted to its own trait.
+
 
 ## Base TestCase
 Assuming that you have separate tests for each controller, lets you easily call actions in the controller as well as assert redirections to actions within that controller.
