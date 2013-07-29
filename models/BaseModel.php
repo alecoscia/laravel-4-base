@@ -40,7 +40,7 @@ abstract class BaseModel extends \Illuminate\Database\Eloquent\Model
 	 */
 	private function setDateTimeOf($field, $value)
 	{
-		if ($this->attributes[$field] = $this->fromDateTime($value)) {
+		if (!$this->attributes[$field] = $this->fromDateTime($value)) {
 			unset($this->dateTimes[$field]);
 		}
 	}
