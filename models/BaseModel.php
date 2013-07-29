@@ -1,8 +1,6 @@
 <?php
 namespace App\Models;
 
-use Carbon\Carbon, DateTime;
-
 abstract class BaseModel extends \Illuminate\Database\Eloquent\Model
 {
 	/**
