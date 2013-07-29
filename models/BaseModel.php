@@ -14,7 +14,7 @@ abstract class BaseModel extends \Illuminate\Database\Eloquent\Model
 
 	/**
 	 * example: public function getTimeAttribute()
-	 * { return $this->getDateTimeFieldOf('time'); }
+	 * { return $this->getDateTimeOf('time'); }
 	 *
 	 * @param  string $field key of the attribute to get
 	 *
