@@ -4,13 +4,6 @@ namespace App\Models\Traits;
 trait CarbonMutatable
 {
 	/**
-	 * Array for storing cached DateTime objects.
-	 *
-	 * @var array
-	 */
-	protected $dateTimes = array();
-
-	/**
 	 * Fields that should be retrieved as Carbon objects.
 	 *
 	 * @var array
