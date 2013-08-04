@@ -8,34 +8,24 @@ abstract class BaseModel extends \Illuminate\Database\Eloquent\Model
 	 *
 	 * @var array
 	 */
-	private $dateTimes = array();
+	protected $dateTimes = array();
 
 	/**
-	 * example: public function getTimeAttribute()
-	 * { return $this->getDateTimeOf('time'); }
+	 * Fields that should be retrieved as Carbon objects.
 	 *
-	 * @param  string $field key of the attribute to get
-	 *
-	 * @return Carbon (DateTime)
+	 * @var array
 	 */
-	private function getDateTimeOf($field)
-	{
-		if (!isset($this->dateTimes[$field])) {
-			$this->dateTimes[$field] = $this->asDateTime($this->attributes[$field]);
-		}
-
-		return $this->dateTimes[$field];
-	}
+	protected $dateTimeFields = array();
 
 	/**
-	 * example: public function setTimeAttribute($value)
-	 * { $this->setDateTimeOf('time', $value); }
-	 *
-	 * @param string          $field key of the attribute to set
-	 * @param string|DateTime $value what time to set the attribute to
-	 */
-	private function setDateTimeOf($field, $value)
+	* Get the attributes that should be converted to dates.
+	*
+	* @return array
+	*/
+	public function getDates()
 	{
-		$this->attributes[$field] = $this->fromDateTime($value);
+		return array_merge($dateTimeFields,
+			array(static::CREATED_AT, static::UPDATED_AT, static::DELETED_AT)
+		);
 	}
 }
