@@ -87,6 +87,9 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 
 	/**
 	 * Helper function to assert that the current route has a filter.
+	 * 
+	 * WARNING: Does not work with controllers adding filters in their
+	 * constructors (e.g. $this->beforeFilter(...))
 	 *
 	 * @param  string $filtername name of the filter.
 	 * @param  string $when       before|after
