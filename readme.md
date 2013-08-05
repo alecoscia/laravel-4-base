@@ -2,10 +2,14 @@
 Repository for my base Laravel 4 files which I use in practically every project.
 
 ## Base Controller
-Set `protected $classname = 'MyApp\Controllers\MyController'` in your controllers.
-`$this->actionUrl('action')` to generate an URL to MyApp\Controllers\MyController@action.
-`$this->redirectToAction('OtherController@action')` to generate a redirect response to another controller in the same namespace.
-`$this->actionUrl('Namespace\Controller@action')` to generate the url to a controller in another namespace (although at this point you may as well use URL::action).
+Shorter syntax for redirecting/generating URLs to namespaced controllers
+
+- Set `protected $classname = 'MyApp\Controllers\MyController'` in your controllers
+- `$this->actionUrl(...)` to find the URL to an action
+- `$this->redirecTToUrl(...)` to generate a redirect response to an action
+- `'action'` becomes `'MyApp\Controllers\MyController@action'`
+- `'OtherController@action'` becomes `'MyApp\Controllers\OtherController@action'`
+- `'OtherNamespace\Controller@action'` stays as is
 
 ## Base Model
 - Easily make the model return certain fields as Carbon (DateTime) objects
