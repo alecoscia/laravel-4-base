@@ -6,7 +6,7 @@ Shorter syntax for redirecting/generating URLs to namespaced controllers
 
 - Set `protected $classname = 'MyApp\Controllers\MyController'` in your controllers
 - `$this->actionUrl(...)` to find the URL to an action
-- `$this->redirecTToUrl(...)` to generate a redirect response to an action
+- `$this->redirectToUrl(...)` to generate a redirect response to an action
 - `'action'` becomes `'MyApp\Controllers\MyController@action'`
 - `'OtherController@action'` becomes `'MyApp\Controllers\OtherController@action'`
 - `'OtherNamespace\Controller@action'` stays as is
