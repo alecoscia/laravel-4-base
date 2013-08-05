@@ -1,7 +1,8 @@
 <?php
 namespace App\Tests;
 
-abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
+abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
+{
 	/**
 	 * Creates the application.
 	 *
@@ -24,7 +25,8 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	protected $controllerName;
 
 	/**
-	 * Perform a request on one of the defined controller's actions.
+	 * Perform a request on an action. If $this->controllerName is set, you
+	 * don't need to include the controller name.
 	 *
 	 * @param  string $method GET, POST, DELETE etc.
 	 * @param  string $action method/function/action name
@@ -36,13 +38,16 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	 */
 	public function callAction($method, $action, $params = array(), $input = array(), $files = array())
 	{
-		$uri = $this->app['url']->action($this->controllerName.'@'.$action, $params, true);
+		$action = $this->parseAction($action);
+		$uri = $this->app['url']->action($action, $params, true);
+
 		$this->crawler = $this->client->request($method, $uri, $input, $files);
+		
  		return $this->client->getResponse();
 	}
 
 	/**
-	 * Perform a GET request on $action in the controller.
+	 * Perform a GET request on an action.
 	 *
 	 * @param  string $action name of the action.
 	 * @param  array  $params (optional) parameters
@@ -55,7 +60,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	}
 
 	/**
-	 * Perform a POST request on $action in the controller.
+	 * Perform a POST request on $action.
 	 *
 	 * @param  string $action name of the action.
 	 * @param  array  $params (optional) parameters
@@ -71,9 +76,10 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	}
 
 	/**
-	 * Our own implementation to avoid having to type the whole controller name over and over.
+	 * Assert that we're redirected to an action. If $this->controllerName is
+	 * set, you just need the action name.
 	 *
-	 * @param  string $action name of the action we're supposed to be redirected to.
+	 * @param  string $action name of the action
 	 * @param  array  $params (optional) action parameters
 	 * @param  array  $with   (optional) session data
 	 *
@@ -81,7 +87,8 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	 */
 	public function assertRedirectedToAction($action, $params = array(), $with = array())
 	{
-		$uri = $this->app['url']->action($this->controllerName.'@'.$action, $params, true);
+		$uri = $this->urlToAction($action, $params);
+
 		$this->assertRedirectedTo($uri, $with);
 	}
 
@@ -99,6 +106,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	public function assertRouteHasFilter($filtername, $when='before')
 	{
 		$route = $this->app['router']->getCurrentRoute();
+
 		if ($when == 'before') {
 			$filters = $route->getBeforeFilters();
 		} elseif ($when == 'after') {
@@ -119,6 +127,9 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 
 	/**
 	 * Check that an input field has a certain value.
+	 * 
+	 * WARNING: Does not work with Form::model for some reason unless you
+	 * manually specify the values in the Form::input calls
 	 *
 	 * @param  string $id    id of the input field
 	 * @param  string $value expected value
@@ -128,20 +139,41 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase {
 	public function assertInputHasValue($id, $value)
 	{
 		$realValue = $this->crawler->filter('input#'.$id)->first()->attr('value');
+
 		$this->assertEquals($realValue, $value,
 			"Disrepency in input#$id - Expected: $value - Real: $realValue");
 	}
 
 	/**
-	 * Our own implementation to avoid having to type the whole controller name over and over.
+	 * Get the URL to an action. If $this->controllerName is set, you don't need
+	 * to add the controller name.
 	 *
-	 * @param  string $action name of the action we're supposed to be redirected to.
+	 * @param  string $action name of the action
 	 * @param  array  $params (optional) action parameters
 	 *
 	 * @return void
 	 */
 	public function urlToAction($action, $params = array())
 	{
-		return $this->app['url']->action($this->controllerName.'@'.$action, $params, true);
+		$action = $this->parseAction($action);
+
+		return $this->app['url']->action($action, $params, true);
+	}
+
+	/**
+	 * Check if $this->controllerName has been set and if the action given
+	 * contains a @, then return the appropriate full action name.
+	 *
+	 * @param  string $action
+	 *
+	 * @return string
+	 */
+	public function parseAction($action)
+	{
+		if (strpos($action, '@') === false && !empty($this->controllerName)) {
+			return $this->controllerName . '@' . $action;
+		}
+
+		return $action;
 	}
 }
