@@ -25,27 +25,6 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	protected $controllername;
 
 	/**
-	 * Perform a request on an action. If $this->controllername is set, you
-	 * don't need to include the controller name.
-	 *
-	 * @param  string $method GET, POST, DELETE etc.
-	 * @param  string $action method/function/action name
-	 * @param  array  $params (optional) parameters
-	 * @param  array  $input  (optional) input data
-	 * @param  array  $files  (optional) files data
-	 *
-	 * @return \Illumniate\Http\Response
-	 */
-	public function callAction($method, $action, $params = array(), $input = array(), $files = array())
-	{
-		$uri = $this->urlToAction($action, $params);
-
-		$this->crawler = $this->client->request($method, $uri, $input, $files);
-		
- 		return $this->client->getResponse();
-	}
-
-	/**
 	 * Perform a GET request on an action.
 	 *
 	 * @param  string $action name of the action.
@@ -89,47 +68,6 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 		$uri = $this->urlToAction($action, $params);
 
 		$this->assertRedirectedTo($uri, $with);
-	}
-
-	/**
-	 * Get the URL to an action. If $this->controllername is set, you don't need
-	 * to add the controller name.
-	 *
-	 * @param  string $action name of the action
-	 * @param  array  $params (optional) action parameters
-	 *
-	 * @return void
-	 */
-	public function urlToAction($action, $params = array())
-	{
-		$action = $this->parseAction($action);
-
-		return $this->app['url']->action($action, $params, true);
-	}
-
-	/**
-	 * Parse an action input and try to guess the classname/namespace based on
-	 * whether or not the input has a @ or \. If one or more aren't present,
-	 * guess based on $this->classname.
-	 *
-	 * @param  string $action
-	 *
-	 * @return string fully namespaced Controller@Action
-	 */
-	public function parseAction($action)
-	{
-		if (!isset($this->classname)) {
-			$this->classname = get_class($this);
-		}
-
-		if (strpos($action, '@') === false) {
-			return $this->classname . '@' . $action;
-		} elseif (strpos($action, '\\') === false) {
-			$namespace = substr($this->classname, 0, strrpos($this->classname, '\\'));
-			return $namespace . '\\' . $action;
-		} else {
-			return $action;
-		}
 	}
 
 	/**
@@ -184,5 +122,67 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 
 		$this->assertEquals($realValue, $value,
 			"Unexpected value in input#{$id}: $realValue -- expected $value");
+	}
+
+	/**
+	 * Perform a request on an action. If $this->controllername is set, you
+	 * don't need to include the controller name.
+	 *
+	 * @param  string $method GET, POST, DELETE etc.
+	 * @param  string $action method/function/action name
+	 * @param  array  $params (optional) parameters
+	 * @param  array  $input  (optional) input data
+	 * @param  array  $files  (optional) files data
+	 *
+	 * @return \Illumniate\Http\Response
+	 */
+	public function callAction($method, $action, $params = array(), $input = array(), $files = array())
+	{
+		$uri = $this->urlToAction($action, $params);
+
+		$this->crawler = $this->client->request($method, $uri, $input, $files);
+		
+ 		return $this->client->getResponse();
+	}
+
+	/**
+	 * Get the URL to an action. If $this->controllername is set, you don't need
+	 * to add the controller name.
+	 *
+	 * @param  string $action name of the action
+	 * @param  array  $params (optional) action parameters
+	 *
+	 * @return void
+	 */
+	public function urlToAction($action, $params = array())
+	{
+		$action = $this->parseAction($action);
+
+		return $this->app['url']->action($action, $params, true);
+	}
+
+	/**
+	 * Parse an action input and try to guess the classname/namespace based on
+	 * whether or not the input has a @ or \. If one or more aren't present,
+	 * guess based on $this->classname.
+	 *
+	 * @param  string $action
+	 *
+	 * @return string fully namespaced Controller@Action
+	 */
+	public function parseAction($action)
+	{
+		if (!isset($this->classname)) {
+			$this->classname = get_class($this);
+		}
+
+		if (strpos($action, '@') === false) {
+			return $this->classname . '@' . $action;
+		} elseif (strpos($action, '\\') === false) {
+			$namespace = substr($this->classname, 0, strrpos($this->classname, '\\'));
+			return $namespace . '\\' . $action;
+		} else {
+			return $action;
+		}
 	}
 }
