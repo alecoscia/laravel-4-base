@@ -103,7 +103,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 *
 	 * @return void
 	 */
-	public function assertRouteHasFilter($filtername, $when='before')
+	public function assertRouteHasFilter($filtername, $when = 'before')
 	{
 		$route = $this->app['router']->getCurrentRoute();
 
@@ -111,6 +111,8 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 			$filters = $route->getBeforeFilters();
 		} elseif ($when == 'after') {
 			$filters = $route->getAfterFilters();
+		} else {
+			throw new \InvalidArgumentException('$when must be "before" or "after"');
 		}
 
 		if ($this->app['router']->currentRouteAction()) {
