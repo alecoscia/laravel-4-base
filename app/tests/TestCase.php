@@ -38,8 +38,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 */
 	public function callAction($method, $action, $params = array(), $input = array(), $files = array())
 	{
-		$action = $this->parseAction($action);
-		$uri = $this->app['url']->action($action, $params, true);
+		$uri = $this->urlToAction($action, $params);
 
 		$this->crawler = $this->client->request($method, $uri, $input, $files);
 		
@@ -90,6 +89,47 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 		$uri = $this->urlToAction($action, $params);
 
 		$this->assertRedirectedTo($uri, $with);
+	}
+
+	/**
+	 * Get the URL to an action. If $this->controllername is set, you don't need
+	 * to add the controller name.
+	 *
+	 * @param  string $action name of the action
+	 * @param  array  $params (optional) action parameters
+	 *
+	 * @return void
+	 */
+	public function urlToAction($action, $params = array())
+	{
+		$action = $this->parseAction($action);
+
+		return $this->app['url']->action($action, $params, true);
+	}
+
+	/**
+	 * Parse an action input and try to guess the classname/namespace based on
+	 * whether or not the input has a @ or \. If one or more aren't present,
+	 * guess based on $this->classname.
+	 *
+	 * @param  string $action
+	 *
+	 * @return string fully namespaced Controller@Action
+	 */
+	public function parseAction($action)
+	{
+		if (!isset($this->classname)) {
+			$this->classname = get_class($this);
+		}
+
+		if (strpos($action, '@') === false) {
+			return $this->classname . '@' . $action;
+		} elseif (strpos($action, '\\') === false) {
+			$namespace = substr($this->classname, 0, strrpos($this->classname, '\\'));
+			return $namespace . '\\' . $action;
+		} else {
+			return $action;
+		}
 	}
 
 	/**
@@ -144,46 +184,5 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 
 		$this->assertEquals($realValue, $value,
 			"Unexpected value in input#{$id}: $realValue -- expected $value");
-	}
-
-	/**
-	 * Get the URL to an action. If $this->controllername is set, you don't need
-	 * to add the controller name.
-	 *
-	 * @param  string $action name of the action
-	 * @param  array  $params (optional) action parameters
-	 *
-	 * @return void
-	 */
-	public function urlToAction($action, $params = array())
-	{
-		$action = $this->parseAction($action);
-
-		return $this->app['url']->action($action, $params, true);
-	}
-
-	/**
-	 * Parse an action input and try to guess the classname/namespace based on
-	 * whether or not the input has a @ or \. If one or more aren't present,
-	 * guess based on $this->classname.
-	 *
-	 * @param  string $action
-	 *
-	 * @return string fully namespaced Controller@Action
-	 */
-	public function parseAction($action)
-	{
-		if (!isset($this->classname)) {
-			$this->classname = get_class($this);
-		}
-
-		if (strpos($action, '@') === false) {
-			return $this->classname . '@' . $action;
-		} elseif (strpos($action, '\\') === false) {
-			$namespace = substr($this->classname, 0, strrpos($this->classname, '\\'));
-			return $namespace . '\\' . $action;
-		} else {
-			return $action;
-		}
 	}
 }
