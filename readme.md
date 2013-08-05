@@ -22,3 +22,6 @@ Shorter syntax for redirecting/generating URLs to namespaced controllers
 
 ## Config
 - compiled.php including some very commonly used Laravel components as well as Sentry files (which I often use)
+
+## Runtime ClassLoader
+I hated needing to load my migration/seeding/command classes into my application, so I figured out that with a custom artisan start-file I could dynamically load them only when using php artisan.
