@@ -143,7 +143,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 		$realValue = $this->crawler->filter('input#'.$id)->first()->attr('value');
 
 		$this->assertEquals($realValue, $value,
-			"Disrepency in input#$id - Expected: $value - Real: $realValue");
+			"Unexpected value in input#{$id}: $realValue -- expected $value");
 	}
 
 	/**
