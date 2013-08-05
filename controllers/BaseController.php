@@ -1,9 +1,11 @@
 <?php
 namespace App\Controllers;
 
-use URL, Redirect;
+use Illuminate\Routing\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
-abstract class BaseController extends \Controller
+abstract class BaseController extends Controller
 {
 	/**
 	 * The fully namespaced class name. Used by helper methods. If you set it
