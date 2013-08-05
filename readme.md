@@ -22,6 +22,7 @@ Shorter syntax for redirecting/generating URLs to namespaced controllers
 
 ## Config
 - compiled.php including some very commonly used Laravel components as well as Sentry files (which I often use)
+- database config for testing to easily check for unintentional DB hits or easily use an isolated SQLLite database.
 
 ## Runtime ClassLoader
 I hated needing to load my migration/seeding/command classes into my application, so I figured out that with a custom artisan start-file I could dynamically load them only when using php artisan.
