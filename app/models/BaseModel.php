@@ -1,4 +1,12 @@
 <?php
+/**
+ * Laravel 4 Base - Base Model class
+ *
+ * @author    Andreas Lutro <anlutro@gmail.com>
+ * @license   http://opensource.org/licenses/MIT
+ * @package   Laravel 4 Base
+ */
+
 namespace anlutro\L4Base;
 
 abstract class Model extends \Illuminate\Database\Eloquent\Model

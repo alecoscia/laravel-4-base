@@ -26,3 +26,6 @@ Shorter syntax for redirecting/generating URLs to namespaced controllers
 
 ## Runtime ClassLoader
 I hated needing to load my migration/seeding/command classes into my application, so I figured out that with a custom artisan start-file I could dynamically load them only when using php artisan.
+
+# License
+The contents of this repository is released under the [MIT license](http://opensource.org/licenses/MIT).
