@@ -1,7 +1,7 @@
 <?php
-namespace App\Models;
+namespace anlutro\L4Base;
 
-abstract class BaseModel extends \Illuminate\Database\Eloquent\Model
+abstract class Model extends \Illuminate\Database\Eloquent\Model
 {
 	/**
 	 * Fields that should be retrieved as Carbon objects.

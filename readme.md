@@ -1,20 +1,20 @@
-# Base class files for Laravel 4
-My repository for base class files for Laravel 4.
-
-Being tired of writing App\Models\MyModel or App\Controllers\MyController in strings related to getting URLs or redirecting in Laravel 4, I wrote some helper functions and organized them in base classes.
-
-The repository may expand to include more functionality in the future. Check the documentation in the .php files for more information on existing functions.
-
+# Base files for Laravel 4
+Repository for my base Laravel 4 files which I use in practically every project.
 
 ## Base Controller
-Includes functions to easily get the URL to or redirect to an action within the same controller.
-
+Set `protected $classname = 'MyApp\Controllers\MyController'` in your controllers.
+`$this->actionUrl('action')` to generate an URL to MyApp\Controllers\MyController@action.
+`$this->redirectToAction('OtherController@action')` to generate a redirect response to another controller in the same namespace.
+`$this->actionUrl('Namespace\Controller@action')` to generate the url to a controller in another namespace (although at this point you may as well use URL::action).
 
 ## Base Model
-Includes functions to easily get and set fields that relate to date/time as Carbon objects.
-
-As well as a BaseModel with all the functions included, each functionality is extracted to its own trait.
-
+- Easily make the model return certain fields as Carbon (DateTime) objects
+- All BaseModel functionality is also extracted into traits
 
 ## Base TestCase
-Assuming that you have separate tests for each controller, lets you easily call actions in the controller as well as assert redirections to actions within that controller.
+- Shorter syntax for calling actions - similar to the BaseController functionality
+- Assert the current route has filters
+- Assert the generated view input fields has values
+
+## Config
+- compiled.php including some very commonly used Laravel components as well as Sentry files (which I often use)

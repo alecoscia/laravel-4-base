@@ -1,7 +1,7 @@
 <?php
-namespace App\Models\Traits;
+namespace anlutro\L4Base;
 
-trait CarbonMutatable
+trait CarbonMutatableModelTrait
 {
 	/**
 	 * Fields that should be retrieved as Carbon objects.
