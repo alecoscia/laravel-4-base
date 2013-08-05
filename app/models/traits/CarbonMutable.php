@@ -17,7 +17,7 @@ trait CarbonMutatableModelTrait
 	*/
 	public function getDates()
 	{
-		return array_merge($dateTimeFields,
+		return array_merge($this->dateTimeFields,
 			array(static::CREATED_AT, static::UPDATED_AT, static::DELETED_AT)
 		);
 	}
