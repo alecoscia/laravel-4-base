@@ -17,7 +17,7 @@
 |
 */
 
-ClassLoader::addDirectories(array(
+Illuminate\Support\ClassLoader::addDirectories(array(
 
 	app_path().'/commands',
 	app_path().'/database/migrations',
