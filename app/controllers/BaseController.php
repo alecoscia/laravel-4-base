@@ -66,7 +66,7 @@ abstract class Controller extends \Illuminate\Routing\Controllers\Controller
 	 *
 	 * @return string fully namespaced Controller@Action
 	 */
-	public function parseAction($action)
+	protected function parseAction($action)
 	{
 		if (!isset($this->classname)) {
 			$this->classname = get_class($this);
