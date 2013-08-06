@@ -12,13 +12,6 @@ namespace anlutro\L4Base;
 trait CarbonMutatableModelTrait
 {
 	/**
-	 * Fields that should be retrieved as Carbon objects.
-	 *
-	 * @var array
-	 */
-	protected $dateTimeFields = array();
-
-	/**
 	* Get the attributes that should be converted to dates.
 	*
 	* @return array
