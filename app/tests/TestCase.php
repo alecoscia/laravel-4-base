@@ -170,9 +170,9 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	}
 
 	/**
-	 * Parse an action input and try to guess the classname/namespace based on
-	 * whether or not the input has a @ or \. If one or more aren't present,
-	 * guess based on $this->classname.
+	 * Parse an action input and try to guess the controllername/namespace based
+	 * on whether or not the input has a @ or \. If one or more aren't present,
+	 * guess based on $this->controllername.
 	 *
 	 * @param  string $action
 	 *
@@ -180,14 +180,14 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 */
 	public function parseAction($action)
 	{
-		if (!isset($this->classname)) {
-			$this->classname = get_class($this);
+		if (!isset($this->controllername)) {
+			return $action;
 		}
 
 		if (strpos($action, '@') === false) {
-			return $this->classname . '@' . $action;
+			return $this->controllername . '@' . $action;
 		} elseif (strpos($action, '\\') === false) {
-			$namespace = substr($this->classname, 0, strrpos($this->classname, '\\'));
+			$namespace = substr($this->controllername, 0, strrpos($this->controllername, '\\'));
 			return $namespace . '\\' . $action;
 		} else {
 			return $action;
