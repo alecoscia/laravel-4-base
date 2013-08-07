@@ -24,8 +24,10 @@ Shorter syntax for redirecting/generating URLs to namespaced controllers
 - compiled.php including some very commonly used Laravel components as well as Sentry files (which I often use)
 - database config for testing to easily check for unintentional DB hits or easily use an isolated SQLLite database.
 
-## Runtime ClassLoader
-I hated needing to load my migration/seeding/command classes into my application, so I figured out that with a custom artisan start-file I could dynamically load them only when using php artisan.
+## ~~Runtime ClassLoader~~
+~~I hated needing to load my migration/seeding/command classes into my application, so I figured out that with a custom artisan start-file I could dynamically load them only when using php artisan.~~
+
+Apparently this doesn't work - migrations will run fine, but if you try to rollback/reset/refresh the classes won't be found.
 
 # License
 The contents of this repository is released under the [MIT license](http://opensource.org/licenses/MIT).
