@@ -29,8 +29,8 @@ return array(
 	'vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php',
 
 	// eloquent and fluent stuff
-	'/home/autoshine/vendor/laravel/framework/src/Illuminate/Support/Collection.php',
-	'/home/autoshine/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php',
+	'vendor/laravel/framework/src/Illuminate/Support/Collection.php',
+	'vendor/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php',
 
 	// controller-specific stuff
 	'vendor/laravel/framework/src/Illuminate/Routing/ControllerServiceProvider.php',
@@ -42,9 +42,9 @@ return array(
 	'vendor/laravel/framework/src/Illuminate/Routing/Controllers/FilterParser.php',
 
 	// URL generator
-	'/home/autoshine/vendor/symfony/routing/Symfony/Component/Routing/Generator/ConfigurableRequirementsInterface.php',
-	'/home/autoshine/vendor/symfony/routing/Symfony/Component/Routing/Generator/UrlGeneratorInterface.php',
-	'/home/autoshine/vendor/symfony/routing/Symfony/Component/Routing/Generator/UrlGenerator.php',
+	'vendor/symfony/routing/Symfony/Component/Routing/Generator/ConfigurableRequirementsInterface.php',
+	'vendor/symfony/routing/Symfony/Component/Routing/Generator/UrlGeneratorInterface.php',
+	'vendor/symfony/routing/Symfony/Component/Routing/Generator/UrlGenerator.php',
 	'vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php',
 
 	// sentry specific stuff
