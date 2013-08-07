@@ -1,0 +1,40 @@
+{
+	"require": {
+		"laravel/framework": "4.0.*",
+		"machuga/authority-l4": "dev-master",
+		"frozennode/administrator": "dev-master",
+		"philf/setting": "dev-master"
+	},
+	"require-dev": {
+		"way/generators": "dev-master",
+		"mockery/mockery" : "dev-master",
+		"fzaninotto/faker": "dev-master"
+	},
+	"autoload": {
+		"classmap": [
+			"app/artisan",
+			"app/composers",
+			"app/controllers",
+			"app/database/migrations",
+			"app/database/seeds",
+			"app/exceptions",
+			"app/filters",
+			"app/models",
+			"app/providers",
+			"app/repositories",
+			"app/tests/TestCase.php"
+		]
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"php artisan config:publish machuga/authority-l4",
+			"php artisan config:publish frozennode/administrator",
+			"php artisan asset:publish frozennode/administrator",
+			"php artisan config:publish philf/setting"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"minimum-stability": "dev"
+}
