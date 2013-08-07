@@ -1,6 +1,7 @@
 {
 	"require": {
 		"laravel/framework": "4.0.*",
+		"cartalyst/sentry": "2.0.*",
 		"machuga/authority-l4": "dev-master",
 		"frozennode/administrator": "dev-master",
 		"philf/setting": "dev-master"
@@ -23,16 +24,6 @@
 			"app/providers",
 			"app/repositories",
 			"app/tests/TestCase.php"
-		]
-	},
-	"scripts": {
-		"post-create-project-cmd": [
-			"php artisan config:publish machuga/authority-l4",
-			"php artisan config:publish frozennode/administrator",
-			"php artisan config:publish philf/setting"
-		],
-		"post-install-cmd": [
-			"php artisan asset:publish frozennode/administrator"
 		]
 	},
 	"config": {
