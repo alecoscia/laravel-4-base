@@ -4,6 +4,7 @@
  * Remove the ones you don't need.
  */
 
+return array(
 	'providers' => array(
 
 		'Authority\AuthorityL4\AuthorityL4ServiceProvider',
@@ -22,4 +23,4 @@
 		'Setting' => 'Philf\Setting\Facades\Setting',
 	
 	),
-
+);
