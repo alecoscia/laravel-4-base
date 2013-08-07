@@ -3,7 +3,7 @@
 // write to daily log files
 $logFile = 'log-'.php_sapi_name().'.txt';
 
-Log::useDailyFiles(storage_path().'/logs/'.$logFile);
+Illuminate\Support\Facades\Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 
 // filters file
 require app_path().'/filters.php';
