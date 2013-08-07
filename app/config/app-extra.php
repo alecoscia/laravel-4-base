@@ -8,6 +8,7 @@ return array(
 	'providers' => array(
 
 		'Authority\AuthorityL4\AuthorityL4ServiceProvider',
+		'Cartalyst\Sentry\SentryServiceProvider',
 		'Philf\Setting\SettingServiceProvider',
 
 		// local/dev only
@@ -20,6 +21,7 @@ return array(
 	'aliases' => array(
 
 		'Authority' => 'Authority\AuthorityL4\Facades\Authority',
+		'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Setting' => 'Philf\Setting\Facades\Setting',
 	
 	),
