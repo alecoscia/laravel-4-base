@@ -1,16 +1,24 @@
 {
+	"name": "",
+	"description": "",
+	"keywords": ["", ""],
+	"homepage": "",
+	"license:": "",
+
 	"require": {
 		"laravel/framework": "4.0.*",
 		"cartalyst/sentry": "2.0.*",
 		"machuga/authority-l4": "dev-master",
 		"frozennode/administrator": "dev-master",
-		"philf/setting": "dev-master"
+		"philf/setting": "dev-master",
+		"anlutro/l4-smart-errors": "dev-master"
 	},
 	"require-dev": {
 		"way/generators": "dev-master",
 		"mockery/mockery" : "dev-master",
 		"fzaninotto/faker": "dev-master"
 	},
+
 	"autoload": {
 		"classmap": [
 			"app/artisan",
@@ -26,6 +34,7 @@
 			"app/tests/TestCase.php"
 		]
 	},
+	
 	"config": {
 		"preferred-install": "dist"
 	},
