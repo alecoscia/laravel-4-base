@@ -34,7 +34,10 @@ Shorter syntax for redirecting/generating URLs to namespaced controllers
 
 ## Base Model
 - Easily make the model return certain fields as Carbon (DateTime) objects
-- All BaseModel functionality is also extracted into traits
+- If validate() exists on the model, check that before saving
+- Extra flexibility for handling observer classes
+
+Where it makes sense I'll also extract base model functionality into traits.
 
 ## Base TestCase
 - Shorter syntax for calling actions - similar to the BaseController functionality
