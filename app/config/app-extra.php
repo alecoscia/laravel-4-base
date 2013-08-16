@@ -11,6 +11,9 @@ return array(
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Philf\Setting\SettingServiceProvider',
 
+		// https://github.com/anlutro/laravel-4-smart-errors
+		'anlutro\L4SmartErrors\L4SmartErrorsServiceProvider',
+
 		// local/dev only
 		'Profiler\ProfilerServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
