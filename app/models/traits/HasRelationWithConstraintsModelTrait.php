@@ -9,6 +9,9 @@
 
 namespace anlutro\L4Base;
 
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 trait HasRelationWithConstraintsModelTrait
 {
 	/**
@@ -33,7 +36,15 @@ trait HasRelationWithConstraintsModelTrait
 		$foreignTable = $instance->getModel()->getTable();
 		$foreignKey = $instance->getForeignKey();
 
-		$query->join($foreignTable, $foreignTable.'.'.$foreignKey, '=', $this->table.'.'.$this->primaryKey);
+		if ($instance instanceof HasOneOrMany) {
+			$query->join($foreignTable, $foreignTable.'.'.$foreignKey, '=', $this->table.'.'.$this->primaryKey);
+		} elseif ($instance instanceof BelongsTo) {
+			$primaryKey = $instance->getModel()->getKeyName();
+			$query->join($foreignTable, $foreignTable.'.'.$primaryKey, '=', $this->table.'.'.$foreignKey);
+		} else {
+			throw new \InvalidArgumentException('Only works on HasOneOrMany and BelongsTo relationships.');
+		}
+
 
 		call_user_func($constraints, $query, $foreignTable);
 		
