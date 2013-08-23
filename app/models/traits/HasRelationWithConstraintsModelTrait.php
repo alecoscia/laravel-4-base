@@ -45,7 +45,6 @@ trait HasRelationWithConstraintsModelTrait
 			throw new \InvalidArgumentException('Only works on HasOneOrMany and BelongsTo relationships.');
 		}
 
-
 		call_user_func($constraints, $query, $foreignTable);
 		
 		return $query->addSelect($this->table . '.*');
