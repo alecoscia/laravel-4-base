@@ -9,6 +9,8 @@
 
 namespace anlutro\L4Base;
 
+use Illuminate\Database\Query\Expression;
+
 trait WithRelationCountModelTrait
 {
 	/**
@@ -31,7 +33,7 @@ trait WithRelationCountModelTrait
 			$relQuery = $instance->getRelationCountQuery($instance->getRelated()->newQuery());
 
 			$query->mergeBindings($relQuery->getQuery())
-				->addSelect(new \Illuminate\Database\Query\Expression('('.$relQuery->toSql().') as '.$relation.'_count'));
+				->addSelect(new Expression('('.$relQuery->toSql().') as '.$relation.'_count'));
 		}
 
 		// dirty hack... if anyone knows how to avoid it please let me know!
