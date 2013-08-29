@@ -30,7 +30,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 *
 	 * @var string
 	 */
-	protected $controllername;
+	protected $controller;
 
 	/**
 	 * Perform a GET request on an action.
@@ -62,7 +62,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	}
 
 	/**
-	 * Assert that we're redirected to an action. If $this->controllername is
+	 * Assert that we're redirected to an action. If $this->controller is
 	 * set, you just need the action name.
 	 *
 	 * @param  string $action name of the action
@@ -133,7 +133,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	}
 
 	/**
-	 * Perform a request on an action. If $this->controllername is set, you
+	 * Perform a request on an action. If $this->controller is set, you
 	 * don't need to include the controller name.
 	 *
 	 * @param  string $method GET, POST, DELETE etc.
@@ -154,7 +154,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	}
 
 	/**
-	 * Get the URL to an action. If $this->controllername is set, you don't need
+	 * Get the URL to an action. If $this->controller is set, you don't need
 	 * to add the controller name.
 	 *
 	 * @param  string $action name of the action
@@ -170,9 +170,9 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	}
 
 	/**
-	 * Parse an action input and try to guess the controllername/namespace based
+	 * Parse an action input and try to guess the controller/namespace based
 	 * on whether or not the input has a @ or \. If one or more aren't present,
-	 * guess based on $this->controllername.
+	 * guess based on $this->controller.
 	 *
 	 * @param  string $action
 	 *
@@ -180,14 +180,14 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 */
 	public function parseAction($action)
 	{
-		if (!isset($this->controllername)) {
+		if (!isset($this->controller)) {
 			return $action;
 		}
 
 		if (strpos($action, '@') === false) {
-			return $this->controllername . '@' . $action;
+			return $this->controller . '@' . $action;
 		} elseif (strpos($action, '\\') === false) {
-			$namespace = substr($this->controllername, 0, strrpos($this->controllername, '\\'));
+			$namespace = substr($this->controller, 0, strrpos($this->controller, '\\'));
 			return $namespace . '\\' . $action;
 		} else {
 			return $action;
