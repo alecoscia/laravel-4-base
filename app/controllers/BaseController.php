@@ -33,7 +33,7 @@ abstract class Controller extends \Illuminate\Routing\Controllers\Controller
 	 *
 	 * @return string         the URL to the action.
 	 */
-	protected function actionUrl($action, $params = array())
+	protected function urlAction($action, $params = array())
 	{
 		$action = $this->parseAction($action);
 
@@ -50,7 +50,7 @@ abstract class Controller extends \Illuminate\Routing\Controllers\Controller
 	 *
 	 * @return Redirect       a Redirect response.
 	 */
-	protected function redirectToAction($action, $params = array())
+	protected function redirectAction($action, $params = array())
 	{
 		$action = $this->parseAction($action);
 
