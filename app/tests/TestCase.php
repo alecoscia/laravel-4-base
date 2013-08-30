@@ -193,4 +193,50 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 			return $action;
 		}
 	}
+
+	/**
+	 * Assert that the session has a given list of values.
+	 * 
+	 * With improved error message when $value is null.
+	 *
+	 * @param  string|array  $key
+	 * @param  mixed  $value
+	 * @return void
+	 */
+	public function assertSessionHas($key, $value = null)
+	{
+		if (is_array($key)) return $this->assertSessionHasAll($key);
+
+		if (is_null($value)) {
+			$this->assertTrue($this->app['session']->has($key), "Session missing key [$key]");
+		} else {
+			$this->assertEquals($value, $this->app['session']->get($key));
+		}
+	}
+
+	/**
+	 * Assert that the session has errors bound.
+	 * 
+	 * With improved error message when $key is null.
+	 * 
+	 * @param  string|array  $bindings
+	 * @param  mixed  $format
+	 * @return void
+	 */
+	public function assertSessionHasErrors($bindings = array(), $format = null)
+	{
+		$this->assertSessionHas('errors');
+
+		$bindings = (array)$bindings;
+
+		$errors = $this->app['session']->get('errors');
+
+		foreach ($bindings as $key => $value) {
+			if (is_int($key)) {
+				$this->assertTrue($errors->has($value), "Session missing error [$key]");
+			} else {
+				$this->assertContains($value, $errors->get($key, $format));
+			}
+		}
+	}
 }
