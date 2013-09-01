@@ -76,7 +76,11 @@ abstract class Controller extends \Illuminate\Routing\Controllers\Controller
 			return $this->classname . '@' . $action;
 		} elseif (strpos($action, '\\') === false) {
 			$namespace = substr($this->classname, 0, strrpos($this->classname, '\\'));
-			return $namespace . '\\' . $action;
+			if (!empty($namespace)) {
+				return $namespace . '\\' . $action;
+			} else {
+				return $action;
+			}
 		} else {
 			return $action;
 		}
