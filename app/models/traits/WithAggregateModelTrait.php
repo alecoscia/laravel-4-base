@@ -55,7 +55,7 @@ trait WithAggregateModelTrait
 
 		// and finally merge it all together
 		return $query->mergeBindings($subQuery)
-			->addSelect( new Expression("($sql) as sum_hours") )
+			->addSelect( new Expression("($sql) as $aggregate_$column") )
 			->addSelect( $this->getTable() . '.*' );
 	}
 }
