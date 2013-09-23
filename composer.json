@@ -9,6 +9,6 @@
 		"mockery/mockery": "dev-master"
 	},
 	"autoload": {
-		"psr-0": { "Base": "src/" }
+		"psr-0": { "anlutro\\Base": "src/" }
 	}
 }
