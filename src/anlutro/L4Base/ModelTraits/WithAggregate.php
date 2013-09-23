@@ -7,11 +7,14 @@
  * @package   Laravel 4 Base
  */
 
-namespace anlutro\L4Base;
+namespace anlutro\L4Base\ModelTraits;
 
 use Illuminate\Database\Query\Expression;
 
-trait WithAggregateModelTrait
+/**
+ * Trait for withAggregate scope functionality.
+ */
+trait WithAggregate
 {
 	/**
 	 * Lets you eager load an aggregate (sum, average etc.) of a related model
@@ -47,15 +50,17 @@ trait WithAggregateModelTrait
 		// get the query builder for the aggregate
 		$subQuery = $this->$relation()
 			->getRelationCountQuery($builder)
-			->select( $expression )
+			->select($expression)
 			->getQuery();
 
 		// get the SQL from the aggregate builder
 		$sql = $subQuery->toSql();
 
 		// and finally merge it all together
-		return $query->mergeBindings($subQuery)
-			->addSelect( new Expression("($sql) as $aggregate_$column") )
-			->addSelect( $this->getTable() . '.*' );
+		$query->mergeBindings($subQuery)
+			->addSelect( new Expression("($sql) as {$aggregate}_{$relation}_{$column}") );
+
+		// dirty hack... if anyone knows how to avoid it please let me know!
+		return $query->addSelect($this->table.'.*');
 	}
 }

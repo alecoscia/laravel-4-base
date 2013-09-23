@@ -7,11 +7,14 @@
  * @package   Laravel 4 Base
  */
 
-namespace anlutro\L4Base;
+namespace anlutro\L4Base\ModelTraits;
 
 use Illuminate\Database\Query\Expression;
 
-trait WithConstrainedRelationCountModelTrait
+/**
+ * Trait for withConstrainedRelationCount scope functionality.
+ */
+trait WithConstrainedRelationCount
 {
 	/**
 	 * Allows for eager loading of relation counts with constraints.
@@ -23,6 +26,8 @@ trait WithConstrainedRelationCountModelTrait
 	 * Returns the model plus a field for count of relations where field=value.
 	 * 
 	 * $model->relation_count;
+	 * 
+	 * @todo  any way to get rid of the select table.* at the end?
 	 *
 	 * @param  Builder $query
 	 * @param  array   $relations  ['rel' => function($query) { ... }]
@@ -35,14 +40,23 @@ trait WithConstrainedRelationCountModelTrait
 
 		foreach ($relations as $relation => $constraint) {
 			$instance = $this->$relation();
-			$relQuery = $instance->getRelationCountQuery($instance->getRelated()->newQuery());
-			$relQuery = $constraint($query);
 
-			$query->mergeBindings($relQuery->getQuery())
-				->addSelect(new Expression('('.$relQuery->toSql().') as '.$relation.'_count'));
+			$relQuery = $instance->getRelated()
+				->newQuery();
+
+			$relCountQuery = $instance->getRelationCountQuery($relQuery);
+			
+			$constraint($relCountQuery);
+
+			$subQuery = $relCountQuery->getQuery();
+
+			$sql = $subQuery->toSql();
+
+			$query->mergeBindings($subQuery)
+				->addSelect(new Expression("($sql) as {$relation}_count"));
 		}
 
 		// dirty hack... if anyone knows how to avoid it please let me know!
-		return $query->addSelect('*');
+		return $query->addSelect($this->table.'.*');
 	}
 }

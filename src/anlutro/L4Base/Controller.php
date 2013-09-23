@@ -12,6 +12,9 @@ namespace anlutro\L4Base;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 
+/**
+ * Abstract controller with a lot of handy functions.
+ */
 abstract class Controller extends \Illuminate\Routing\Controllers\Controller
 {
 	/**
@@ -58,7 +61,7 @@ abstract class Controller extends \Illuminate\Routing\Controllers\Controller
 	}
 
 	/**
-	 * Parse an action input and try to guess the classname/namespace based on
+	 * Parse an action input and try to guess the classname/namespace anlutro\L4Based on
 	 * whether or not the input has a @ or \. If one or more aren't present,
 	 * guess based on $this->classname.
 	 *

@@ -1,56 +1,50 @@
 # Base files for Laravel 4
-Repository for my base Laravel 4 files which I use in practically every project.
+Collection of useful Laravel 4 classes and files.
 
-## Composer.json
-Contains packages I often use in my  projects:
+src/ contains classes/traits that are psr-0 autoloaded and can be used at any point in your projects.
 
-- `machuga/authority-l4` - Give users roles, restrict access to parts of the app
-- `frozennode/administrator` - Bootstrapped admin panels
-- `philf/setting` - Save dynamic site settings to a JSON file
-- [`anlutro/l4-smart-errors`](https://github.com/anlutro/laravel-4-smart-errors) - Email myself on uncaught exceptions and log 404s
-- (dev) `way/generators` - Generate model/controller/test... files quickly
-- (dev) `mockery/mockery` - Mock objects easily in tests
-- (dev) `fzaninotto/faker` - Autogenerate fields for test data
+skel/ contains useful skeleton files which can be copied into your project root.
 
-Classmap autoload for directories I commonly use. I usually rename my commands folder to artisan because there's just too damn many folders starting with c.
+Install via composer: `composer require anlutro\l4-base:dev-master`
 
-I removed all the scripts mostly because I want more control over when stuff is actually ran.
-
-## Config
-- app-extra.php contains providers and aliases I commonly use, for easy copy-pasting
-- compiled.php including some very commonly used Laravel components as well as Sentry files (which I often use)
-- database config for testing to easily check for unintentional DB hits or easily use an isolated SQLLite database.
-- Stripped much of the files in `app/start` - I offload the tasks that are here at project creation to other files instead
-
-## Base Controller
-Shorter syntax for redirecting/generating URLs to namespaced controllers
+## Autoloaded classes
+### Base Controller
+Shorter syntax for redirecting/generating URLs to namespaced controller actions
 
 - Set `protected $classname = 'MyApp\Controllers\MyController'` in your controllers
 - `$this->actionUrl(...)` to find the URL to an action
-- `$this->redirectToUrl(...)` to generate a redirect response to an action
+- `$this->redirectUrl(...)` to generate a redirect response to an action
 - `'action'` becomes `'MyApp\Controllers\MyController@action'`
 - `'OtherController@action'` becomes `'MyApp\Controllers\OtherController@action'`
 - `'OtherNamespace\Controller@action'` stays as is
 
-## Base Model
-- Easily make the model return certain fields as Carbon (DateTime) objects
-- If validate() exists on the model, check that before saving
-- Extra flexibility for handling observer classes
+### Model Traits
+Advanced scoping functionality. See each trait source file for examples and documentation.
 
-Where it makes sense I'll also extract base model functionality into traits.
+- hasConstrained - has() with constraints
+- withAggregate - lazy load sum/count/etc of related model columns
+- withRelationCount - lazy load count of related models
+- withConstrainedRelationCount - lazy load count of related models with constraint
 
-## Base TestCase
+### Base TestCase
 - Shorter syntax for calling actions - similar to the BaseController functionality
 - Assert the current route has filters
 - Assert the generated view input fields has values
+- Improved assertion error messages for assertSessionHas
 
-## Base view files
+### Menu Composer
+Extend this class and add multiple composers to the menu view found in the skel/ directory
+
+## Skeleton files
+### Config
+- compiled.php including some very commonly used Laravel components
+- database config for testing to easily check for unintentional DB hits or easily use an isolated SQLLite database
+- mail.pretend = true in local only
+
+### Base view files
 Main layout based on HTML5 Boilerplate. Bootstrap 3 CSS structure. Yields for adding a page title, scripts either in head or at the end of body, and content.
 
-Empty header/footer/sidebar template files.
+Email layout based on the HTML Email Boilerplate (v0.5): http://htmlemailboilerplate.com/
 
-## Email view layout
-Based on the HTML Email Boilerplate (v0.5): http://htmlemailboilerplate.com/
-
-# License
+## License
 The contents of this repository is released under the [MIT license](http://opensource.org/licenses/MIT).

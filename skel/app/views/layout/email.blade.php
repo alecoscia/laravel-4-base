@@ -27,7 +27,7 @@
 		}
 		table td {border-collapse: collapse;}
 		table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
-		a {color: orange;}
+		/*a {color: orange;}*/
 		/*a:link { color: orange; }*/
 		/*a:visited { color: blue; }*/
 		/*a:hover { color: green; }*/
@@ -46,13 +46,13 @@
 		@media only screen and (-webkit-min-device-pixel-ratio: 2) {
 			/* Put your iPhone 4g styles in here */
 		}
-		@media only screen and (-webkit-device-pixel-ratio:.75){
+		@media only screen and (-webkit-device-pixel-ratio:.75) {
 			/* Put CSS for low density (ldpi) Android layouts in here */
 		}
-		@media only screen and (-webkit-device-pixel-ratio:1){
+		@media only screen and (-webkit-device-pixel-ratio:1) {
 			/* Put CSS for medium density (mdpi) Android layouts in here */
 		}
-		@media only screen and (-webkit-device-pixel-ratio:1.5){
+		@media only screen and (-webkit-device-pixel-ratio:1.5) {
 			/* Put CSS for high density (hdpi) Android layouts in here */
 		}
 	</style>

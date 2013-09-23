@@ -9,6 +9,9 @@
 
 namespace anlutro\L4Base;
 
+/**
+ * Abstract TestCase with a lot of handy functions.
+ */
 abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
 	/**
@@ -22,7 +25,9 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 
 		$testEnvironment = 'testing';
 
-		return require __DIR__.'/../../bootstrap/start.php';
+		// ./vendor/anlutro/l4-base/src/anlutro/Base
+		//   ..    /..     /..     /.. /..     /..
+		return require __DIR__.'/../../../../../../bootstrap/start.php';
 	}
 
 	/**
@@ -146,7 +151,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 */
 	public function callAction($method, $action, $params = array(), $input = array(), $files = array())
 	{
-		$uri = $this->urlToAction($action, $params);
+		$uri = $this->urlAction($action, $params);
 
 		$this->crawler = $this->client->request($method, $uri, $input, $files);
 		
@@ -162,7 +167,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 *
 	 * @return void
 	 */
-	public function urlToAction($action, $params = array())
+	public function urlAction($action, $params = array())
 	{
 		$action = $this->parseAction($action);
 
@@ -170,7 +175,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	}
 
 	/**
-	 * Parse an action input and try to guess the controller/namespace based
+	 * Parse an action input and try to guess the controller/namespace anlutro\L4Based
 	 * on whether or not the input has a @ or \. If one or more aren't present,
 	 * guess based on $this->controller.
 	 *

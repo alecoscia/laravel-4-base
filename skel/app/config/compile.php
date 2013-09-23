@@ -47,22 +47,4 @@ return array(
 	'vendor/symfony/routing/Symfony/Component/Routing/Generator/UrlGenerator.php',
 	'vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php',
 
-	// sentry specific stuff
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Users/ProviderInterface.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Hashing/HasherInterface.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Groups/ProviderInterface.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Throttling/ProviderInterface.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Throttling/ThrottleInterface.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Sessions/SessionInterface.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Cookies/CookieInterface.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Sentry.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Users/Eloquent/Provider.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Hashing/Sha256Hasher.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Groups/Eloquent/Provider.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Throttling/Eloquent/Provider.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Throttling/Eloquent/Throttle.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Sessions/IlluminateSession.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Cookies/IlluminateCookie.php',
-	'vendor/cartalyst/sentry/src/Cartalyst/Sentry/Facades/Laravel/Sentry.php',
-
 );

@@ -1,42 +1,14 @@
 {
-	"name": "",
-	"description": "",
-	"keywords": ["", ""],
-	"homepage": "",
-	"license:": "",
-
+	"name": "anlutro/larave-4-base",
+	"description": "Laravel 4 Base",
+	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.0.*",
-		"cartalyst/sentry": "2.0.*",
-		"machuga/authority-l4": "dev-master",
-		"frozennode/administrator": "dev-master",
-		"philf/setting": "dev-master",
-		"anlutro/l4-smart-errors": "dev-master"
+		"laravel/framework": "4.0.*"
 	},
 	"require-dev": {
-		"way/generators": "dev-master",
-		"mockery/mockery" : "dev-master",
-		"fzaninotto/faker": "dev-master"
+		"mockery/mockery": "dev-master"
 	},
-
 	"autoload": {
-		"classmap": [
-			"app/artisan",
-			"app/composers",
-			"app/controllers",
-			"app/database/migrations",
-			"app/database/seeds",
-			"app/exceptions",
-			"app/filters",
-			"app/models",
-			"app/providers",
-			"app/repositories",
-			"app/tests/TestCase.php"
-		]
-	},
-	
-	"config": {
-		"preferred-install": "dist"
-	},
-	"minimum-stability": "dev"
+		"psr-0": { "Base": "src/" }
+	}
 }

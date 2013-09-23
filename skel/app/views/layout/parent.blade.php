@@ -7,24 +7,21 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>
-			@yield('title') | 
-			{{ Config::get('app.name') ?: 'APP NAME MISSING' }}
+			@yield('title') | {{ Config::get('app.name') ?: 'APP NAME MISSING' }}
 		</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	@if (App::environment() == 'production')
-		<link rel="stylesheet" href="css/main.min.css">
-	@else
-		<link rel="stylesheet" href="css/main.css">
-	@endif
-		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+		<link rel="stylesheet" href="{{ URL::asset('css/libs.min.css') }}">
+		<link rel="stylesheet" href="{{ URL::asset('css/app.min.css') }}">
+
+		{{-- <script src="{{ URL::asset('js/modernizr.min.js') }}"></script> --}}
 
 		@yield('head')
 	</head>
 	<body>
 		<!--[if lt IE 7]>
-			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+			<p class="browsehappy">@lang('misc.browsehappy', array('url' => 'http://browsehappy.com/'))</p>
 		<![endif]-->
 
 <div class="container">
@@ -32,35 +29,28 @@
 		@include('partial.header')
 	</header>
 	
-	<section class="main">
-		@yield('content')
-	</section>
-
-	<aside class="sidebar">
-		@include('partial.sidebar')
-	</aside>
+	<div class="main-wrapper">
+		@yield('wrapper')
+	</div>
 
 	<footer class="footer">
 		@include('partial.footer')
 	</footer>
 </div>
 
-		<!-- Try to load jQuery from a CDN, if it doesn't work load from local -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-
-		<script src="js/plugins.js"></script>
-		<script src="js/main.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
+		<script src="{{ URL::asset('js/app.min.js') }}"></script>
 
 		@yield('scripts')
 
-		<script>
+		<!--<script>
 			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
 			function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
 			e=o.createElement(i);r=o.getElementsByTagName(i)[0];
 			e.src='//www.google-analytics.com/analytics.js';
 			r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
 			ga('create','UA-XXXXX-X');ga('send','pageview');
-		</script>
+		</script>-->
 	</body>
 </html>
