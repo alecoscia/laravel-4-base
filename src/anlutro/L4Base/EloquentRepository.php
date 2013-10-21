@@ -162,5 +162,5 @@ abstract class EloquentRepository
 	 *
 	 * @return void
 	 */
-	protected function prepareQuery(Builder $query)	{}
+	protected function prepareQuery(Builder $query) {}
 }
