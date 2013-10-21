@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\URL;
 /**
  * Abstract controller with a lot of handy functions.
  */
-abstract class Controller extends \Illuminate\Routing\Controllers\Controller
+abstract class Controller extends \Illuminate\Routing\Controller
 {
 	/**
 	 * The fully namespaced class name. Used by helper methods. If you set it
