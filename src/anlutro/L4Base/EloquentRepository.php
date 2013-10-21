@@ -14,6 +14,15 @@ abstract class EloquentRepository
 		$this->model = $model;
 	}
 
+	public function togglePagination($paginate = false)
+	{
+		if ($paginate === false) {
+			$this->paginate = false;
+		} else {
+			$this->paginate = (int) $paginate;
+		}
+	}
+
 	public function getModel()
 	{
 		return $this->model;
