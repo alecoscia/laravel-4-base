@@ -41,7 +41,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 * Perform a GET request on an action.
 	 *
 	 * @param  string $action name of the action.
-	 * @param  array  $params (optional) parameters
+	 * @param  array  $params (optional) route parameters
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
@@ -54,8 +54,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 * Perform a POST request on $action.
 	 *
 	 * @param  string $action name of the action.
-	 * @param  array  $params (optional) parameters
-	 * @param  array  $params (optional) parameters
+	 * @param  array  $params (optional) route parameters
 	 * @param  array  $input  (optional) input data
 	 * @param  array  $files  (optional) files data
 	 *
@@ -71,7 +70,7 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 	 * set, you just need the action name.
 	 *
 	 * @param  string $action name of the action
-	 * @param  array  $params (optional) action parameters
+	 * @param  array  $params (optional) route parameters
 	 * @param  array  $with   (optional) session data
 	 *
 	 * @return void
