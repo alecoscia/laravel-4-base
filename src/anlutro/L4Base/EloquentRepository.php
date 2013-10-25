@@ -10,7 +10,6 @@
 namespace anlutro\L4Base;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
 
 /**
  * Abstract repository that provides some basic functionality.
@@ -139,11 +138,11 @@ abstract class EloquentRepository
 	/**
 	 * Run a query builder and return its results.
 	 *
-	 * @param  Illuminate\Database\Query\Builder $query
+	 * @param  $query  query builder instance/reference
 	 *
 	 * @return mixed
 	 */
-	protected function runQuery(Builder $query)
+	protected function runQuery($query)
 	{
 		$this->prepareQuery($query);
 
@@ -158,9 +157,9 @@ abstract class EloquentRepository
 	 * This function is ran by runQuery before fetching the results. Put default
 	 * behaviours in this function.
 	 *
-	 * @param  Illuminate\Database\Query\Builder $query
+	 * @param  $query  query builder instance/reference
 	 *
 	 * @return void
 	 */
-	protected function prepareQuery(Builder $query) {}
+	protected function prepareQuery($query) {}
 }
