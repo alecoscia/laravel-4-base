@@ -84,9 +84,6 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 
 	/**
 	 * Helper function to assert that the current route has a filter.
-	 * 
-	 * WARNING: Does not work with controllers adding filters in their
-	 * constructors (e.g. $this->beforeFilter(...))
 	 *
 	 * @param  string $filtername name of the filter.
 	 * @param  string $when       before|after
@@ -104,7 +101,25 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 		} else {
 			throw new \InvalidArgumentException('$when must be "before" or "after"');
 		}
-
+		// handle Controller Filters
+		if (!is_null($route->getAction())) {
+			list($controllerName, $method) = explode("@", $route->getAction());
+			if ($when == "before") {
+				$filterClass = 'Illuminate\Routing\Controllers\Before';
+			} else {
+				$filterClass = 'Illuminate\Routing\Controllers\After';
+			}
+			$filterParser = new Illuminate\Routing\Controllers\FilterParser();
+			/**
+			 * We need to create a new instance of the controller which is 
+			 * called by the route to reach the filters of this controller.
+			 * Not a very good approach but looks like this is 
+			 * the only way to reach the filters of a controller
+			 */
+			$controllerInstance = App::make($controllerName);
+			$controllerFilters = $filterParser->parse($controllerInstance, $this->app['router']->getRequest(), $method, $filterClass);
+			$filters = array_merge($filters, $controllerFilters);
+		}
 		if ($this->app['router']->currentRouteAction()) {
 			$routeName = $this->app['router']->currentRouteAction();
 		} elseif ($this->app['router']->currentRouteName()) {
