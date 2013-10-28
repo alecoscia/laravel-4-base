@@ -129,6 +129,18 @@ abstract class EloquentRepository
 	}
 
 	/**
+	 * Delete an existing model instance.
+	 *
+	 * @param  Model  $model
+	 *
+	 * @return boolean
+	 */
+	public function delete(Model $model)
+	{
+		return $model->delete();
+	}
+
+	/**
 	 * Create a new model instance and save it to the database.
 	 *
 	 * @param  array  $attributes optional
