@@ -116,6 +116,23 @@ abstract class DatabaseRepository
 	}
 
 	/**
+	 * Toggle pagination. False or no arguments to disable pagination, otherwise
+	 * provide a number of items to show per page.
+	 *
+	 * @param  mixed $paginate
+	 *
+	 * @return void
+	 */
+	public function togglePagination($paginate = false)
+	{
+		if ($paginate === false) {
+			$this->paginate = false;
+		} else {
+			$this->paginate = (int) $paginate;
+		}
+	}
+
+	/**
 	 * Run a query builder and return its results.
 	 *
 	 * @param  $query  query builder instance/reference
