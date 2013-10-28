@@ -115,6 +115,7 @@ abstract class EloquentRepository
 	 * Save changes an existing model instance.
 	 *
 	 * @param  Illuminate\Database\Eloquent\Model $model
+	 * @param  array $attributes (optional)
 	 *
 	 * @return boolean
 	 */
