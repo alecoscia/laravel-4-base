@@ -118,8 +118,12 @@ abstract class EloquentRepository
 	 *
 	 * @return boolean
 	 */
-	public function update(Model $model)
+	public function update(Model $model, $attributes = null)
 	{
+		if ($attributes !== null) {
+			$model->fill($attributes);
+		}
+
 		return $model->save();
 	}
 
